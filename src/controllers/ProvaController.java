@@ -27,10 +27,6 @@ public class ProvaController extends Controller{
 
 	private ArrayList<models.Questao> questoes;
 	
-	public void Prova(Date dataDeCriacao, String titulo, DisciplinaController disciplina, ArrayList<QuestaoController> questao) {
-
-	}
-
 	public void exportarParaPDF(String id) throws Exception {
             em.clear();
             
@@ -146,9 +142,6 @@ public class ProvaController extends Controller{
             
 	}
 
-//	public void exportarParaDOC() {
-//
-//	}
 
 	public boolean cadastrar() {
             try{
@@ -205,13 +198,6 @@ public class ProvaController extends Controller{
             return listaFinal;
 	}
 
-	public void atualizar() {
-
-	}
-
-	public void deletar() {
-
-	}
 
     /**
      * @return the titulo

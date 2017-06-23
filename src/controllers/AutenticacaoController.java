@@ -11,7 +11,7 @@ public class AutenticacaoController extends Controller{
 	private static AutenticacaoController autenticacao;
 	private String senha;
 	private Usuario usuario=null;
-	public AutenticacaoController(){
+	private AutenticacaoController(){
 		
 	}
 	public static AutenticacaoController getInstance(){
@@ -22,9 +22,6 @@ public class AutenticacaoController extends Controller{
 	}
 	
 	public boolean login(String loginUsuario, String senha) {
-            
-//           UsuarioController u = new UsuarioController(loginUsuario,null,null,senha);
-           //List<Usuario>  l = u.busca("Usuario.findByLoginSenha");
            
            ArrayList<String> parametros = new ArrayList<>();
            parametros.add("login");
@@ -34,10 +31,7 @@ public class AutenticacaoController extends Controller{
            values.add(senha);
           
            List<Object>  l = find("Usuario.findByLoginSenha", Usuario.class, parametros, values);
-           
-//           for(Usuario ll : l){
-//               System.out.println(ll.getQuestaoCollection());
-//           }
+
            if(l.size()<=0){
                System.out.println("Não logou");
                return false;

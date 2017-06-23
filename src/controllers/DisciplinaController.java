@@ -12,9 +12,9 @@ public class DisciplinaController extends Controller{
 
 	private String codigo;
 
-    public DisciplinaController() {
-        
-    }
+        public DisciplinaController() {
+
+        }
 
 	public boolean cadastrar() {
             try{
@@ -31,9 +31,6 @@ public class DisciplinaController extends Controller{
             }
 	}
 
-	public void atualizar() {
-
-	}
 
 	public void deletar(int id) {
             
@@ -77,20 +74,6 @@ public class DisciplinaController extends Controller{
 	}
         
         
-//	public List<Disciplina> getTodos() {
-//            
-//           ArrayList<String> parametros = new ArrayList<>();
-//           parametros.add("nome");
-//           ArrayList values = new ArrayList();
-//           values.add("%"+this.getNome()+"%");
-//          
-//           List<Disciplina>  l = (List<Disciplina>) (Object) find("Disciplina.findByNomeLike", Disciplina.class, parametros, values);
-//           for(Disciplina ll : l){
-//               System.out.println(ll.getCodigo());
-//           }
-//            return l;
-//	}
-
 	public DisciplinaController(String nome, String codigo) {
 		this.nome=nome;
 		this.codigo=codigo;

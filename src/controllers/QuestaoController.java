@@ -32,10 +32,6 @@ public class QuestaoController extends Controller{
                 return false;
             }
         }
-
-	public void atualizar() {
-
-	}
         
         public List<Questao> buscar(String tipo,ArrayList<String> keys,ArrayList<String> values) {
             

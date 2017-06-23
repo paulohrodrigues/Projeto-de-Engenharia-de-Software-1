@@ -8,7 +8,7 @@ import models.Disciplina;
 import models.Prova;
 import models.Questao;
 
-@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-06-22T22:24:16")
+@Generated(value="EclipseLink-2.5.2.v20140319-rNA", date="2017-06-23T11:42:34")
 @StaticMetamodel(Usuario.class)
 public class Usuario_ { 
 

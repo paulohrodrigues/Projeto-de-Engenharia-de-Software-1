@@ -26,13 +26,6 @@ public class UsuarioController extends Controller{
 		this.senha=senha;
                
 	}
-
-        
-//        public List<Usuario> busca(String tipo){;;
-//            this.inicialize();
-//            List<Usuario> l = this.find(tipo,Usuario.class);
-//            return l; 
-//        }
         
         
         public boolean cadastrar() throws SQLException {
@@ -48,14 +41,6 @@ public class UsuarioController extends Controller{
 	}
 
         
-        
-	public void atualizar() {
-
-	}
-
-	public void recuperarSenha() {
-
-	}
         
         
 	public void setSenha(String senha) {
