@@ -31,11 +31,25 @@ public class ProvaController extends Controller{
 
 	}
 
-	public void exportarParaPDF(String id) {
+	public void exportarParaPDF(String id) throws Exception {
             em.clear();
-            Document document = new Document();
+            
+            if(id.trim().equals("")){
+                throw new Exception();
+               // return ;
+            }
             try {
+                ArrayList<String> keys=new ArrayList();
+                keys.add("id");
+                ArrayList<String> values=new ArrayList();
+                values.add(id);
                 
+                List<Prova> listaDeProvas = this.buscar("Prova.findById", keys, values);
+                if(listaDeProvas.size()<=0){
+                    throw new Exception();
+                }
+                
+                Document document = new Document();
                 Date d = new Date();
                 Calendar cal = new GregorianCalendar();
                 cal.setTime(d);
@@ -48,13 +62,6 @@ public class ProvaController extends Controller{
                 document.add(new Paragraph(" "));
                 document.add(new Paragraph(" "));
                 document.add(new Paragraph(getTitulo()));
-                
-                ArrayList<String> keys=new ArrayList();
-                keys.add("id");
-                ArrayList<String> values=new ArrayList();
-                values.add(id);
-                
-                List<Prova> listaDeProvas = this.buscar("Prova.findById", keys, values);
                 
                 document.add(new Paragraph(listaDeProvas.get(0).getTitulo()));
                 document.add(new Paragraph("Professor: "+AutenticacaoController.getInstance().getUsuario().getNome()));
@@ -81,33 +88,62 @@ public class ProvaController extends Controller{
                         document.add(new Paragraph(" "));
                     }
                 }
-                
-               
-//                ArrayList<String> valuess = new ArrayList<>();
-//                values.add( String.valueOf(idQuestao));
-//                System.out.println(idQuestao);
-//                List<Questao> listaDeQuestoesGerais = (new QuestaoController()).buscar("Questao.findById", keys, valuess);
-//                
-//                //System.out.println(listaDeQuestoesGerais.get(0));
-//                
-//                System.out.println(listaDeQuestoesGerais.get(0));
-                
-                
-//
-//                
-//                for(Questao euQueroNoRetorno : q){
-//                    System.out.println(euQueroNoRetorno);
-//                    System.out.println(euQueroNoRetorno);
-//                }
-//
-//                
+                 
+                document.close();
+
+                document = new Document();
+
+
+                PdfWriter.getInstance(document, new FileOutputStream("./"+id+"_"+cal.getTimeInMillis()+"resposta.pdf"));
+                document.open();
+
+                // adicionando um parágrafo no documento
+                document.add(new Paragraph("UFAL - Prova Gerada Pelo Software Gerenciador de provas GPDocs"));
+                document.add(new Paragraph(" "));
+                document.add(new Paragraph(" "));
+                document.add(new Paragraph(getTitulo()));
+
+                document.add(new Paragraph(listaDeProvas.get(0).getTitulo()));
+                document.add(new Paragraph("Professor: "+AutenticacaoController.getInstance().getUsuario().getNome()));
+                document.add(new Paragraph("RESPOSTAS"));
+                document.add(new Paragraph(" "));
+                document.add(new Paragraph(" "));
+
+                Collection<Questao> questoesLocalR = listaDeProvas.get(0).getQuestaoCollection();
+
+                i =0;
+                for(Questao q: questoesLocalR){
+                    i++;
+                    //System.out.println(i+")"+q.getEnunciado());
+                    document.add(new Paragraph(i+"º) "+q.getEnunciado()));
+                    if(q.getQuestaoabertaCollection().size()>0){
+                        for(models.Questaoaberta qa: q.getQuestaoabertaCollection()){
+                            //System.out.println();
+                            document.add(new Paragraph("R: "+ qa.getRespostaguia()));
+                            document.add(new Paragraph(" "));
+                        }
+                    }
+                    q.getQuestaofechadaCollection();
+                    for(models.Questaofechada qf:q.getQuestaofechadaCollection()){
+                        System.out.println("Teste");
+                        document.add(new Paragraph("R: "+qf.getAlternativacerta()));
+                        document.add(new Paragraph(" "));
+                        break;
+                    }
+                }
+
+                document.close();
+            
+            
+            
             }catch(DocumentException de) {
-                System.err.println(de.getMessage());
+                throw new Exception();
             }
             catch(IOException ioe) {
-                System.err.println(ioe.getMessage());
+                
+                throw new Exception();
             }
-            document.close();
+            
 	}
 
 //	public void exportarParaDOC() {
